@@ -1,16 +1,23 @@
 const express = require("express");
+const dotenv = require("dotenv");
 const res = require("express/lib/response");
+const mongoose = require("mongoose");
 const app = express();
+dotenv.config({path:'./config.env'});
+const DB = process.env.DATABASE;
+mongoose.connect(DB,{
+    useNewUrlParser:true, 
+    
+}).then(()=>{
+    console.log("Connected to database successfully")
+}).catch((err)=>{
+    console.log(err);
+})
 
-const middleware = (req,res,next)=>{
-    console.log("Hello from Middleware ");
-    next();
-}
-
-app.get("/", (req, res) => {
-    res.send("Hello Wolrd from the server");
+app.get("/", (req, res) => { 
+    res.send("Hello Wolrd from the server"); 
 });
-app.get("/about",middleware, (req, res) => {
+app.get("/about", (req, res) => {
     res.send("Hello About Wolrd from the server");
 });
 app.get("/contact", (req, res) => {
