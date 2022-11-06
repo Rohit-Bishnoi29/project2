@@ -1,18 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const res = require("express/lib/response");
-const mongoose = require("mongoose");
 const app = express();
 dotenv.config({path:'./config.env'});
-const DB = process.env.DATABASE;
-mongoose.connect(DB,{
-    useNewUrlParser:true, 
-    
-}).then(()=>{
-    console.log("Connected to database successfully")
-}).catch((err)=>{
-    console.log(err);
-})
+require("./db/conn");
+
 
 app.get("/", (req, res) => { 
     res.send("Hello Wolrd from the server"); 
@@ -29,7 +21,7 @@ app.get("/signin", (req, res) => {
 app.get("/signup", (req, res) => {
     res.send("Hello Signup Wolrd from the server");
 });
-const PORT = 3000;
+const PORT = process.env.PORT||3000; 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
