@@ -2,13 +2,14 @@ const express = require("express");
 const dotenv = require("dotenv");
 const res = require("express/lib/response");
 const app = express();
-dotenv.config({path:'./config.env'});
+dotenv.config({ path: './config.env' });
 require("./db/conn");
+const User = require("./model/userSchema");
+app.use(express.json());
+app.use(require('./router/auth'));
 
 
-app.get("/", (req, res) => { 
-    res.send("Hello Wolrd from the server"); 
-});
+
 app.get("/about", (req, res) => {
     res.send("Hello About Wolrd from the server");
 });
@@ -21,7 +22,7 @@ app.get("/signin", (req, res) => {
 app.get("/signup", (req, res) => {
     res.send("Hello Signup Wolrd from the server");
 });
-const PORT = process.env.PORT||3000; 
+const PORT = process.env.PORT ;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
