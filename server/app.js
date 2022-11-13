@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(require('./router/auth'));
 
 
-
+ 
 app.get("/about", (req, res) => {
     res.send("Hello About Wolrd from the server");
 });
